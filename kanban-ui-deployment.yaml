@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kanban-ui
+    group: frontend
+  name: kanban-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kanban-ui
+  template:
+    metadata:
+      labels:
+        app: kanban-ui
+        group: frontend
+    spec:
+      containers:
+      - image: wkrzywiec/kanban-ui:k8s
+        name: kanban-ui
+        ports:
+        - containerPort: 80
+          #protocol: TCP
+        resources:
+          #requests:
+          #  memory: "512Mi"
+          #  cpu: "256m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: adminer
+    group: db
+  name: adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+        group: db
+    spec:
+      containers:
+      - image: adminer:4.7.6-standalone
+       # mky21/adminer-postgres-client
+        name: adminer
+        ports:
+        - containerPort: 8080
+          #protocol: TCP
+        env:
+          - name: ADMINER_DESIGN
+            value: pepa-linha
+          - name: ADMINER_DEFAULT_SERVER
+            value: postgres
+          - name: ns
+            value: public 
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
